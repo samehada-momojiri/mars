@@ -2,10 +2,18 @@ name: Build Spring Boot
 
 on:
   push:
-    branches: [ main, develop ]
+# すべてのブランチが対象
+#    branches: [ main, develop ]
   pull_request:
-    branches: [ main, develop ]
-
+# すべてのブランチが対象
+#    branches: [ main, develop ]
+    # types 
+    # - PR作成（opened）
+    # - PR更新（synchronize：pushされたとき）
+    # - 再オープン（reopened）
+    # - マージ（closed + merged=true）
+    # - クローズ（closed）
+    types: [opened, synchronize, reopened]
 jobs:
   build:
     runs-on: ubuntu-latest
