@@ -29,7 +29,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build jar
-        run: ./gradlew bootJar
+        run: ./gradlew bootJar --info
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
