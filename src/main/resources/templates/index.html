@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -67,7 +67,7 @@
 
             <div class="mt-10 flex flex-col gap-4 sm:flex-row">
               <a
-                href="#missions"
+                th:href="@{'/explore'}"
                 class="inline-flex items-center justify-center rounded-full bg-white/90 px-8 py-4 text-lg font-medium text-orange-700 shadow-2xl shadow-orange-900/30 transition hover:-translate-y-0.5 hover:bg-white"
               >
                 Explore
@@ -78,32 +78,30 @@
               >
                 Learn More
               </a>
+              <a
+                th:href="@{'/tasks/new'}"
+                class="inline-flex items-center justify-center rounded-full border border-amber-200/60 bg-amber-100/20 px-8 py-4 text-lg font-medium text-amber-100 transition hover:bg-amber-100/30"
+              >
+                タスク登録
+              </a>
             </div>
           </div>
         </section>
 
         <section id="about" class="bg-[#0b0811]/90">
-          <div class="mx-auto grid max-w-7xl gap-6 px-6 py-16 lg:grid-cols-3 lg:px-10">
-            <div class="glass rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl shadow-black/20">
-              <p class="text-sm uppercase tracking-[0.3em] text-orange-200/80">Landscape</p>
-              <h2 class="mt-3 text-2xl font-semibold">Epic Martian Terrain</h2>
-              <p class="mt-4 text-white/75">
-                Expansive valleys, layered rock formations, and a dramatic glowing horizon create a striking first impression.
-              </p>
+          <div class="mx-auto max-w-7xl px-6 py-16 lg:px-10">
+            <p th:if="${tasksError}" th:text="${tasksError}" class="rounded-xl border border-red-300/30 bg-red-900/20 px-4 py-3 text-red-200"></p>
+
+            <div th:if="${#lists.isEmpty(tasks)}" class="rounded-2xl border border-white/10 bg-white/5 p-6 text-white/70">
+              タスクはありません。
             </div>
-            <div class="glass rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl shadow-black/20">
-              <p class="text-sm uppercase tracking-[0.3em] text-orange-200/80">Vision</p>
-              <h2 class="mt-3 text-2xl font-semibold">Future-Driven Brand Feel</h2>
-              <p class="mt-4 text-white/75">
-                Clean typography and restrained navigation keep the focus on atmosphere while still feeling premium and modern.
-              </p>
-            </div>
-            <div class="glass rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl shadow-black/20">
-              <p class="text-sm uppercase tracking-[0.3em] text-orange-200/80">Action</p>
-              <h2 class="mt-3 text-2xl font-semibold">Built for Conversion</h2>
-              <p class="mt-4 text-white/75">
-                Strong CTA placement and clear hierarchy make this layout suitable for product pages, campaigns, and concept sites.
-              </p>
+
+            <div th:unless="${#lists.isEmpty(tasks)}" class="grid gap-6 lg:grid-cols-3">
+              <div th:each="task : ${tasks}" class="glass rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl shadow-black/20">
+                <p th:text="${task.completed} ? '処理済' : '未処理'" class="text-sm uppercase tracking-[0.3em] text-orange-200/80"></p>
+                <h2 th:text="${task.title}" class="mt-3 text-2xl font-semibold"></h2>
+                <p th:text="${task.description}" class="mt-4 text-white/75"></p>
+              </div>
             </div>
           </div>
         </section>

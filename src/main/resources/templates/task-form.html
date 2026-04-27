@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="min-h-screen bg-[#0a0710] text-white">
+    <main class="mx-auto max-w-3xl px-6 py-16">
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl shadow-black/30">
+        <h1 class="text-3xl font-semibold">タスク登録</h1>
+        <p class="mt-2 text-white/75">JupiterのTasks APIへ新しいタスクを登録します。</p>
+
+        <p
+          th:if="${taskError}"
+          th:text="${taskError}"
+          class="mt-6 rounded-xl border border-red-300/30 bg-red-900/20 px-4 py-3 text-red-200"
+        ></p>
+
+        <form th:action="@{/tasks}" th:object="${taskForm}" method="post" class="mt-8 space-y-6">
+          <div>
+            <label for="title" class="mb-2 block text-sm text-white/80">タイトル</label>
+            <input
+              id="title"
+              type="text"
+              th:field="*{title}"
+              class="w-full rounded-xl border border-white/20 bg-black/20 px-4 py-3 text-white outline-none ring-0 placeholder:text-white/40 focus:border-amber-200/70"
+              placeholder="例: API仕様を確認する"
+              required
+            />
+          </div>
+
+          <div>
+            <label for="description" class="mb-2 block text-sm text-white/80">概要</label>
+            <textarea
+              id="description"
+              th:field="*{description}"
+              rows="5"
+              class="w-full rounded-xl border border-white/20 bg-black/20 px-4 py-3 text-white outline-none ring-0 placeholder:text-white/40 focus:border-amber-200/70"
+              placeholder="タスクの詳細を入力"
+              required
+            ></textarea>
+          </div>
+
+          <label class="flex items-center gap-3 text-white/90">
+            <input type="checkbox" th:field="*{completed}" class="h-4 w-4 rounded border-white/30 bg-black/20 text-amber-300 focus:ring-amber-200/40" />
+            処理済として登録する
+          </label>
+
+          <div class="flex flex-wrap gap-3">
+            <button
+              type="submit"
+              class="rounded-full bg-white/90 px-6 py-3 text-sm font-medium text-orange-700 transition hover:bg-white"
+            >
+              登録する
+            </button>
+            <a
+              th:href="@{/}"
+              class="rounded-full border border-white/40 px-6 py-3 text-sm font-medium text-white/90 transition hover:bg-white/10"
+            >
+              戻る
+            </a>
+          </div>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>
