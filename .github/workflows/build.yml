@@ -1,7 +1,7 @@
 name: Build Spring Boot
 
 on:
-  push:
+  #push:
   # すべてのブランチが対象
   #    branches: [ main, develop ]
   pull_request:
